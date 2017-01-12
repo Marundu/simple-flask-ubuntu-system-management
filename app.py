@@ -37,14 +37,12 @@ def reboot():
     reboot=request.form.get('reboot')
     flash('Your system will now reboot.')
     os.system('sudo reboot')
-    return redirect(url_for('home'))
 
 @app.route('/shutdown', methods=['POST'])
 def shutdown():
     shutdown=request.form.get('shutdown')
     flash('Your system will now shut down.')
     os.system('sudo shutdown -h 0')
-    return redirect(url_for('home'))
 
 def html_log():
     sys_log=open('/var/log/apt/term.log', 'r')
