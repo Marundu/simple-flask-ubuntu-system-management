@@ -57,11 +57,12 @@ def html_log():
         f.write(log_content)
     f.close()
                
-@app.route('/check_logs', methods=['GET','POST'])
+@app.route('/check_logs', methods=['POST'])
 def check_logs():
     check_logs=request.form.get('check_logs')
     html_log()
     open_new_tab('html_logs/log.html')
+    return redirect(url_for('home'))
     
 if __name__=='__main__':
     app.run(debug=True, port=7097)
