@@ -5,10 +5,6 @@
 # with the format
 # username ALL=(ALL) NOPASSWD: /usr/bin/apt,/usr/bin/apt-get,/sbin/shutdown,/sbin/reboot
 
-# Improvements - add progress bar,
-# install and uninstall programs via a text box,
-# scheduled shutdowns and reboots
-
 import os
 from flask import Flask, flash, redirect, render_template, request, url_for
 from webbrowser import open_new_tab
