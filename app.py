@@ -5,13 +5,13 @@
 # with the format
 # username ALL=(ALL) NOPASSWD: /usr/bin/apt,/usr/bin/apt-get,/sbin/shutdown,/sbin/reboot
 
-# Improvements - dump logs to html, add progress bar,
+# Improvements - add progress bar,
 # install and uninstall programs via a text box,
 # scheduled shutdowns and reboots
 
 import os
 from flask import Flask, flash, redirect, render_template, request, url_for
-import webbrowser
+from webbrowser import open_new_tab
 
 app=Flask(__name__)
 app.secret_key=os.urandom(50)
@@ -26,7 +26,6 @@ def update():
     flash('Your system will now update.')
     os.system('sudo apt update -y')
     flash('Update complete!')
-    #html_log()
     return redirect(url_for('home'))
 
 @app.route('/upgrade', methods=['POST'])
@@ -35,7 +34,6 @@ def upgrade():
     flash('Your system will now upgrade.')
     os.system('sudo apt upgrade -y')
     flash('Upgrade complete!')
-    #html_log()
     return redirect(url_for('home'))
         
 @app.route('/reboot', methods=['POST'])
@@ -53,16 +51,21 @@ def shutdown():
     return redirect(url_for('home'))
 
 def html_log():
-    log='/var/log/apt/term.log'
-
-    # Convert term.log to log.html:
-    # each line in term.log to be <p><br>
-            
-# @app.route('/check_logs', methods=['GET','POST'])
-# def check_logs():
-#     check_logs=request.form.get('check_logs')
-#     html_log()
-#     webbrowser.open('html_logs/log.html')
+    log=open('/var/log/apt/term.log', 'r')
+    f=open('html_logs/log.html', 'w')
+   
+    wrapper='<p>{}</p>'
+    
+    for line in log:
+        log_content=wrapper.format(line)
+        f.write(log_content)
+    f.close()
+               
+@app.route('/check_logs', methods=['GET','POST'])
+def check_logs():
+    check_logs=request.form.get('check_logs')
+    html_log()
+    open_new_tab('html_logs/log.html')
     
 if __name__=='__main__':
     app.run(debug=True, port=7097)
