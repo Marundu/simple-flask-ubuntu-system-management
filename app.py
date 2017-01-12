@@ -47,15 +47,15 @@ def shutdown():
     return redirect(url_for('home'))
 
 def html_log():
-    log=open('/var/log/apt/term.log', 'r')
-    f=open('html_logs/log.html', 'w')
+    sys_log=open('/var/log/apt/term.log', 'r')
+    html_log=open('html_logs/log.html', 'w')
    
     wrapper='<p>{}</p>'
     
-    for line in log:
+    for line in sys_log:
         log_content=wrapper.format(line)
-        f.write(log_content)
-    f.close()
+        html_log.write(log_content)
+    html_log.close()
                
 @app.route('/check_logs', methods=['POST'])
 def check_logs():
