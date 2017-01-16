@@ -44,7 +44,7 @@ def shutdown():
     flash('Your system will now shut down.')
     os.system('sudo shutdown -h 0')
 
-def html_log():
+def generate_html_log():
     sys_log=open('/var/log/apt/term.log', 'r')
     html_log=open('html_logs/log.html', 'w')
    
@@ -55,10 +55,16 @@ def html_log():
         html_log.write(log_content)
     html_log.close()
                
-@app.route('/check_logs', methods=['POST'])
-def check_logs():
-    check_logs=request.form.get('check_logs')
-    html_log()
+@app.route('/check_log', methods=['POST'])
+def check_log():
+    check_log=request.form.get('check_logs')
+    open_new_tab('html_logs/log.html')
+    return redirect(url_for('home'))
+
+@app.route('/generate', methods=['POST'])
+def generate_log():
+    generate_log=request.form.get('generate')
+    generate_html_log()
     open_new_tab('html_logs/log.html')
     return redirect(url_for('home'))
     
