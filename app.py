@@ -57,7 +57,7 @@ def generate_html_log():
                
 @app.route('/check_log', methods=['POST'])
 def check_log():
-    check_log=request.form.get('check_logs')
+    check_log=request.form.get('check_log')
     open_new_tab('html_logs/log.html')
     return redirect(url_for('home'))
 
