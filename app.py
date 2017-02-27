@@ -5,9 +5,14 @@
 # with the format
 # username ALL=(ALL) NOPASSWD: /usr/bin/apt,/usr/bin/apt-get,/sbin/shutdown,/sbin/reboot
 
-import os
-from flask import Flask, flash, redirect, render_template, request, url_for
+from flask import Flask
+from flask import flash
+from flask import redirect
+from flask import render_template
+from flask import request
+from flask import url_for
 from webbrowser import open_new_tab
+import os
 
 app=Flask(__name__)
 app.secret_key=os.urandom(50)
