@@ -36,6 +36,15 @@ def upgrade():
     os.system('sudo apt upgrade -y')
     flash('Upgrade complete!')
     return redirect(url_for('home'))
+
+@app.route('/clean', methods=['POST'])
+def clean():
+    clean=request.form.get('clean')
+    flash('Your system will now be cleaned.')
+    os.system('sudo apt-get autoclean -y')
+    os.system('sudo apt-get autoremove -y')
+    flash('Cleaning complete!')
+    return redirect(url_for('home'))
         
 @app.route('/reboot', methods=['POST'])
 def reboot():
