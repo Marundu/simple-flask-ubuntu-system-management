@@ -37,6 +37,14 @@ def upgrade():
     flash('Upgrade complete!')
     return redirect(url_for('home'))
 
+@app.route('/update_upgrade', methods=['POST'])
+def update_upgrade():
+    update_upgrade=request.form.get('update_upgrade')
+    flash('Your system will now update and upgrade.')
+    os.system('sudo apt upgrade -y && sudo apt upgrade -y')
+    flash('Update and upgrade complete!')
+    return redirect(url_for('home'))
+
 @app.route('/clean', methods=['POST'])
 def clean():
     clean=request.form.get('clean')
